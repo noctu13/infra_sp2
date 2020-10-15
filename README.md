@@ -10,22 +10,51 @@ Download [Docker Desktop](https://www.docker.com/products/docker-desktop) for Ma
 ## Enviroment settings
 
 specify the following environment variables in /code/.env
-```
-SECRET_KEY - set your own key
-DB_ENGINE=django.db.backends.postgresql
-DB_NAME=postgres
-DB_HOST=db
-DB_PORT=5432
-```
+
+    SECRET_KEY - set your own key
+    DB_ENGINE=django.db.backends.postgresql
+    DB_NAME=postgres
+    DB_HOST=db
+    DB_PORT=5432
+
 See details [Django settings: DATABASES](https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-DATABASES)
-```
-POSTGRES_USER=postgres
-POSTGRES_PASSWORD - set your own password
-```
+
+    POSTGRES_USER=postgres
+    POSTGRES_PASSWORD - set your own password
+
 See details [Postgres: Environment Variables](https://hub.docker.com/_/postgres)
 
 Run in this directory:
-```
-docker-compose up
-```
+
+    docker-compose up
+
 The app will be running at [http://localhost:8000](http://localhost:8000)
+
+## Run tests
+
+You can run the Django tests within the running web container by doing this:
+
+    sudo docker-compose exec web pytest
+
+## Other commands
+
+Run other Django management commands, e.g.:
+
+    docker-compose exec web ./manage.py createsuperuser
+
+Or get a bash prompt within the web container:
+
+    docker-compose exec web bash
+
+Stop it all running:
+
+    docker-compose down
+
+If you change something in `docker-compose.yml` then you'll need to build
+things again:
+
+    docker-compose build
+
+Or, just for the `web` container:
+
+    docker-compose build web
